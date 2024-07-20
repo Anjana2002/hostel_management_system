@@ -1,0 +1,19 @@
+{% load static %}
+<head>
+    <title>Warden</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</head>
+<body>
+    <div id='box1' align="center">
+    <h1>WELCOME {{username}} <h1>
+    <p><button type='submit' onclick="navigateTo('{% url 'add_student' %}')">Add Student</button></p>
+    <p><button type='submit' onclick="navigateTo('{% url 'attendance' %}')">Attendance</button></p>
+    <p><button type='submit' onclick="navigateTo('{% url 'attendance_rep' %}')">Attandnce Report</button></p>
+   
+    </div>
+</body>
