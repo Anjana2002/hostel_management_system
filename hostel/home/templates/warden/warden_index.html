@@ -11,7 +11,12 @@
 <body>
     <div id='box1' align="center">
     <h1>WELCOME {{username}} <h1>
-    <p><button type='submit' onclick="navigateTo('{% url 'add_student' %}')">Add Student</button></p>
+        <p>
+            <a href="{% url 'approve_student' %}">Approve Students</a>
+            {% if pending_count > 0 %}
+                <span style="color: red;">({{ pending_count }} pending)</span>
+            {% endif %}
+        </p>
     <p><button type='submit' onclick="navigateTo('{% url 'attendance' %}')">Attendance</button></p>
     <p><button type='submit' onclick="navigateTo('{% url 'attendance_rep' %}')">Attandnce Report</button></p>
    

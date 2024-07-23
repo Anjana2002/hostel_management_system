@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Approve Students</title>
+    </head>
+    <body>
+        <h1>Pending Student Approvals</h1>
+        {% if pending_students %}
+        <table border='solid'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Date of Birth</th>
+                    <th>Programme</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Guardian</th>
+                    <th>Guardian Number</th>
+                    <th>Food Preference</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in pending_students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.user_name }}</td>
+                        <td>{{ student.date_of_birth }}</td>
+                        <td>{{ student.programme }}</td>
+                        <td>{{ student.phone_number }}</td>
+                        <td>{{ student.email_id }}</td>
+                        <td>{{ student.guardian }}</td>
+                        <td>{{ student.guardian_number }}</td>
+                        <td>{{ student.food_preference }}</td>
+                        <td>
+                            <form method="post" action="{% url 'approving' student.id %}">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="approve">Approve</button>
+                                <button type="submit" name="action" value="deny">Deny</button>
+                            </form>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p>No pending approvals.</p>
+            {% endif %}
+    </body>
+</html>
