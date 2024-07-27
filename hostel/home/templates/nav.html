@@ -1,0 +1,8 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <a href="{% url 'login_home' %}"><button type="button">Home</button></a>
+    <button type="button" onclick="history.back()">Back</button>
+</body>

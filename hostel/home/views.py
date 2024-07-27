@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login as auth_login
-from .models import login, student, PendingStudentRegistration, programme, role
+from .models import login, student, PendingStudentRegistration, programme, role, room
 from .forms import StudentRegistrationForm
 from django.contrib import messages
 # Create your views here.
@@ -70,22 +70,21 @@ def approve_student(request):
     return render(request, 'warden/approve_student.html',{'pending_students':pending_students})
 
 def get_next_user_id():
-    # Fetch the last user_id, if any
     last_login =login.objects.last()
     
     if last_login:
-        # Increment the last user_id
         return last_login.user_id + 1
     else:
-        # Start with 1 if there are no records
         return 1
     
 def approving(request, student_id):
     if request.method=="POST":
         pending = get_object_or_404(PendingStudentRegistration, id=student_id)
         action = request.POST.get('action')
+        room_id = request.POST.get('room_id')
         if action=='approve':
-            
+            room_instance = None
+            room_instance = get_object_or_404(room, room_id=room_id)
             programme_instance = get_object_or_404(programme, pgm_name=pending.programme)
             new_student = student.objects.create(
                 name = pending.name,
@@ -97,8 +96,8 @@ def approving(request, student_id):
                 email_id=pending.email_id,
                 guardian=pending.guardian,
                 guardian_number=pending.guardian_number,
-                food_preference=pending.food_preference
-
+                food_preference=pending.food_preference,
+                room=room_instance 
             )
             
             student_role = get_object_or_404(role, pk=3)

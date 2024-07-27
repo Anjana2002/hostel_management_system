@@ -7,6 +7,9 @@
     </head>
     <body>
         <h1>Student Registration</h1>
+        <a href="{% url 'login_home' %}"><button type="button">Home</button></a>
+        <button type="button" onclick="history.back()">Back</button>
+
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

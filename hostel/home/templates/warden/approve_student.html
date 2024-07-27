@@ -3,7 +3,7 @@
         <title>Approve Students</title>
     </head>
     <body>
-        <h1>Pending Student Approvals</h1>
+        <h1>Pending Student Approvals</h1>{% include 'nav.html' %}
         {% if pending_students %}
         <table border='solid'>
             <thead>
@@ -17,6 +17,7 @@
                     <th>Guardian</th>
                     <th>Guardian Number</th>
                     <th>Food Preference</th>
+                    <th>Room Allocate</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -32,10 +33,12 @@
                         <td>{{ student.guardian }}</td>
                         <td>{{ student.guardian_number }}</td>
                         <td>{{ student.food_preference }}</td>
-                        <td>
+                        
+                       
                             <form method="post" action="{% url 'approving' student.id %}">
                                 {% csrf_token %}
-                                <button type="submit" name="action" value="approve">Approve</button>
+                                <td><input type="text" name="room_id" placeholder="Enter Room ID"></td>
+                                <td><button type="submit" name="action" value="approve">Approve</button>
                                 <button type="submit" name="action" value="deny">Deny</button>
                             </form>
 

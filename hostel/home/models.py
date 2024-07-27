@@ -10,6 +10,7 @@ class role(models.Model):
 class room(models.Model):
     room_id = models.IntegerField(primary_key=True)
     room_name = models.CharField(max_length=10)
+    no_of_bed = models.IntegerField(default=4)
     class Meta:
         db_table = 'room'
 
@@ -89,6 +90,7 @@ class student(models.Model):
     guardian = models.CharField(max_length=100)
     guardian_number = models.CharField(max_length=15)
     food_preference = models.CharField(max_length=10)
+    room = models.ForeignKey('room', on_delete=models.CASCADE, null=True, blank=True)
     class Meta:
         db_table = 'student'
 
